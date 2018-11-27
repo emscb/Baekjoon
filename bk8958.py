@@ -9,3 +9,5 @@ for i in range(N):
             b = len(i)
             score += b*(b+1)/2
     print(int(score))
+
+# Done

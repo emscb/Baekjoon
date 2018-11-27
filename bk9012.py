@@ -26,3 +26,5 @@ for i in range(T):
         print("NO")
 
     else: print("NO")
+
+# Done
