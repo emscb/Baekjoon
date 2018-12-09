@@ -1,4 +1,34 @@
 from tkinter import filedialog, Tk
+from pylab import *
+
+def hydropathy_index(window_size, sequence):
+    hydropathy = []
+    for i in range(len(sequence)-window_size+1):
+        sum = 0
+        for s in sequence[i:i+window_size]:
+            sum += kd[s]
+        hydropathy.append(sum/window_size)
+    return hydropathy
+
+def positive_number(hydropathy_list):
+    ans = 0
+    index = 0
+    indexList = []
+    ansList = []
+    for i in hydropathy_list:
+        if i >= 0:
+            indexList.append(index)
+        else:
+            if len(indexList) >= 20:
+                indexList.append(index)
+                ans += 1
+                ansList.append(indexList[::])
+                indexList = []
+            else:
+                indexList = []
+        index += 1
+    return ans, ansList
+
 
 kd = { 'A': 1.8,'R':-4.5,'N':-3.5,'D':-3.5,'C': 2.5,
        'Q':-3.5,'E':-3.5,'G':-0.4,'H':-3.2,'I': 4.5,
@@ -13,13 +43,36 @@ root.withdraw()
 
 file = open(root.filename, 'r')
 seq = ""
+header = ''
 f = file.read().splitlines()
 for i in f:
     try:
         if i[0] == '>':
+            header = i
             print(i); continue
         else:
           seq += i
     except IndexError:
         pass
-print(seq)
+
+name = header.split('|')[1]
+
+print("Sequence length : %dbp" % len(seq))
+h = hydropathy_index(7, seq)
+print("Hydropathy index length : %d" % len(h))
+n, position = positive_number(h)
+print(n)
+print(position)
+
+
+x_data = range(0,len(h))
+y_data = h
+
+plot(x_data, y_data)
+
+axhline(0, color="g")
+
+xlabel("Residue number")
+ylabel("Hydropathy index (%daa window)" % 7)
+title("Hydropathy index for %s" % name)
+show()
