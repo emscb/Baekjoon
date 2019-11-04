@@ -131,10 +131,7 @@ while 1:
                 break
             if is_oprn:
                 is_oprn = False
-                if is_float:
-                    oprn.push(float(tmp_oprn))
-                else:
-                    oprn.push(int(tmp_oprn))
+                oprn.push(float(tmp_oprn) if is_float else int(tmp_oprn))
                 is_float = False
                 tmp_oprn = ""
             else:
@@ -155,10 +152,7 @@ while 1:
                 break
             if is_oprn:
                 is_oprn = False
-                if is_float:
-                    oprn.push(float(tmp_oprn))
-                else:
-                    oprn.push(int(tmp_oprn))
+                oprn.push(float(tmp_oprn) if is_float else int(tmp_oprn))
                 is_float = False
                 tmp_oprn = ""
             oprt.push(a)
@@ -186,10 +180,7 @@ while 1:
         continue
     if is_oprn:
         is_oprn = False
-        if is_float:
-            oprn.push(float(tmp_oprn))
-        else:
-            oprn.push(int(tmp_oprn))
+        oprn.push(float(tmp_oprn) if is_float else int(tmp_oprn))
         is_float = False
         tmp_oprn = ""
     while oprn.top != 0:
