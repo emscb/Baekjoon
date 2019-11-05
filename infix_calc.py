@@ -175,7 +175,6 @@ while 1:
             error_code = -1
             break
         before_oprn = a
-
     if error_code != 0:
         continue
     if is_oprn:
@@ -188,10 +187,6 @@ while 1:
         a1 = oprn.pop()
         op = oprt.pop()
         oprn.push(calc(a1, a2, op))
-    if oprt.is_empty():
-        print(oprn.pop())
-    else:
-        print("Error : Operand missed")
-        continue
+    print(oprn.pop()) if oprt.is_empty() else print("Error : Operand missed")
     del oprn
     del oprt
