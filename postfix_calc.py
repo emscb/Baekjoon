@@ -151,13 +151,43 @@ while 1:
             error_code = -1
             break
         before_oprn = a
-    if error_code != 0:
-        continue
     if is_oprn:
         is_oprn = False
         postfix += tmp_oprn + " "
         tmp_oprn = ""
     while oprt.top != -1:
+        if oprt.view() == '(':
+            print("Error : Operand missed")
+            error_code = -1
         postfix += oprt.pop() + " "
-    print(postfix)
+    if error_code != 0:
+        continue
+    print(postfix.strip())
     del oprt
+
+    # 계산
+    oprn = Stack()
+    tmp_oprn = ""
+    is_oprn = False
+    is_float = False
+    for p in postfix:
+        if '0' <= p <= '9':
+            is_oprn = True
+            tmp_oprn += p
+        elif p == '.':
+            is_float = True
+            if not is_oprn:
+                tmp_oprn += '0'
+                is_oprn = True
+            tmp_oprn += p
+        elif p == ' ' and is_oprn:
+            is_oprn = False
+            oprn.push(float(tmp_oprn) if is_float else int(tmp_oprn))
+            is_float = False
+            tmp_oprn = ""
+        elif p in ['+', '-', '*', '/', '^']:
+            a2 = oprn.pop()
+            a1 = oprn.pop()
+            oprn.push(calc(a1, a2, p))
+    print(oprn.view())
+    del oprn
