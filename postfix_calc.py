@@ -42,6 +42,7 @@ while 1:
     tmp_oprn = ""
     before_oprn = ""
     postfix = ""
+    error_code = 0
 
     for a in A:
         if '0' <= a <= '9':

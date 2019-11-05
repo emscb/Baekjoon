@@ -39,10 +39,11 @@ while 1:
     oprn = Stack()
     oprt = Stack()
     is_oprn = False
+    is_float = False
     is_start_of_parenthesis = False
     tmp_oprn = ""
     before_oprn = ""
-    is_float = False
+    error_code = 0
 
     for a in A:
         if '0' <= a <= '9':
