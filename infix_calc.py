@@ -156,6 +156,10 @@ while 1:
                 oprn.push(float(tmp_oprn) if is_float else int(tmp_oprn))
                 is_float = False
                 tmp_oprn = ""
+            else:
+                print("Error : Operator duplicated")
+                error_code = -1
+                break
             oprt.push(a)
         elif a == '.':
             if is_float:
@@ -183,7 +187,7 @@ while 1:
         oprn.push(float(tmp_oprn) if is_float else int(tmp_oprn))
         is_float = False
         tmp_oprn = ""
-    while oprn.top != 0:
+    while oprn.top != -1:
         a2 = oprn.pop()
         a1 = oprn.pop()
         op = oprt.pop()

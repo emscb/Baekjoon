@@ -45,7 +45,7 @@ while 1:
     error_code = 0
 
     for a in A:
-        if '0' <= a <= '9':
+        if '0' <= a <= '9' or a == '.':
             if is_oprn:
                 tmp_oprn += a
             elif before_oprn == ')':
@@ -128,4 +128,36 @@ while 1:
                 print("Error : There is not operand before right parenthesis")
                 error_code = -1
                 break
-            # Todo 왼괄호가 나올 때 까지 다 꺼내기
+            while oprt.view() != '(':
+                postfix += oprt.pop() + " "
+            oprt.pop()
+            is_start_of_parenthesis = False
+        elif a == '^':
+            if before_oprn == '.':
+                print("Error : Invalid float operand")
+                error_code = -1
+                break
+            if is_oprn:
+                postfix += tmp_oprn + " "
+                tmp_oprn = ""
+            else:
+                print("Error : Operator duplicated")
+                error_code = -1
+                break
+            oprt.push(a)
+            is_oprn = False
+        else:
+            print("Error : Not supported operator")
+            error_code = -1
+            break
+        before_oprn = a
+    if error_code != 0:
+        continue
+    if is_oprn:
+        is_oprn = False
+        postfix += tmp_oprn + " "
+        tmp_oprn = ""
+    while oprt.top != -1:
+        postfix += oprt.pop() + " "
+    print(postfix)
+    del oprt
