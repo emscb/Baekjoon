@@ -25,10 +25,6 @@ N, K = map(int, input().split())
 Ns = input().split()
 Ns = [int(x) for x in Ns]
 Ns.sort()
-Nset = set(Ns)
-Nd = {}
-for n in Nset:
-    Nd[n] = Ns.count(n)
 
 ans = []
 count = 0
