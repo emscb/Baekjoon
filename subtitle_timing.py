@@ -1,4 +1,4 @@
-# 5분 빠른 경우
+# 자막이 빠른 경우
 
 import re
 
@@ -10,8 +10,9 @@ def print_int(i):
         return "0" + str(i)
 
 
-content = open('timing.txt', 'r')
-newContent = open('timing_edited.txt', 'w')
+sec = 10
+content = open('timing.txt', 'rt', encoding='UTF-8')
+newContent = open('timing_edited.txt', 'w', encoding='UTF-8')
 newLine = ""
 for c in content.readlines():
     if c == "\n":
@@ -20,7 +21,7 @@ for c in content.readlines():
         newLine += c
         print(c)
     else:
-        exp = re.compile(r"(\d{2}):(\d{2}):(\d{2}).(\d{3})\s+-->\s+(\d{2}):(\d{2}):(\d{2}).(\d{3})")
+        exp = re.compile(r"(\d{2}):(\d{2}):(\d{2})[.,](\d{3})\s+-->\s+(\d{2}):(\d{2}):(\d{2}).(\d{3})")
         fa2 = re.findall(exp, c)
         if len(fa2) == 0:
             newLine += c
@@ -34,24 +35,24 @@ for c in content.readlines():
         a6 = int(a6)
         a7 = int(a7)
 
-        if a3 + 5 >= 60:
+        if a3 + sec >= 60:
             if a2 + 1 >= 60:
-                newLine += print_int(a1 + 1) + ":" + print_int(a2 + 1 - 60) + ":" + print_int(a3 + 5 - 60) + "," + a4
+                newLine += print_int(a1 + 1) + ":" + print_int(a2 + 1 - 60) + ":" + print_int(a3 + sec - 60) + "," + a4
             else:
-                newLine += print_int(a1) + ":" + print_int(a2 + 1) + ":" + print_int(a3 + 5 - 60) + "," + a4
+                newLine += print_int(a1) + ":" + print_int(a2 + 1) + ":" + print_int(a3 + sec - 60) + "," + a4
         else:
-            newLine += print_int(a1) + ":" + print_int(a2) + ":" + print_int(a3 + 5) + "," + a4
+            newLine += print_int(a1) + ":" + print_int(a2) + ":" + print_int(a3 + sec) + "," + a4
 
         newLine += " --> "
 
-        if a7 + 5 >= 60:
+        if a7 + sec >= 60:
             if a6 + 1 >= 60:
                 newLine += print_int(a5 + 1) + ":" + print_int(a6 + 1 - 60) + ":" + print_int(
-                    a7 + 5 - 60) + "," + a8 + "\n"
+                    a7 + sec - 60) + "," + a8 + "\n"
             else:
-                newLine += print_int(a5) + ":" + print_int(a6 + 1) + ":" + print_int(a7 + 5 - 60) + "," + a8 + "\n"
+                newLine += print_int(a5) + ":" + print_int(a6 + 1) + ":" + print_int(a7 + sec - 60) + "," + a8 + "\n"
         else:
-            newLine += print_int(a5) + ":" + print_int(a6) + ":" + print_int(a7 + 5) + "," + a8 + "\n"
+            newLine += print_int(a5) + ":" + print_int(a6) + ":" + print_int(a7 + sec) + "," + a8 + "\n"
 
 # print(newLine)
 newContent.write(newLine)
